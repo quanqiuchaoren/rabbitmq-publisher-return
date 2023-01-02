@@ -1,0 +1,12 @@
+# 配置RabbitMQ的基本信息  ip 端口 username  password..
+spring:
+  rabbitmq:
+    host: 122.9.140.213 # ip
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    # 这个参数默认是false，开启之后，则可以开启发布者回退方法的回调
+    publisher-returns: true
+    template:
+      mandatory: true
