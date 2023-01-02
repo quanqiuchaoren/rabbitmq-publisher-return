@@ -40,13 +40,13 @@ public class PublisherReturnTest {
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "key_return", "publisher return mq hello~~~");
     }
 
-    @DisplayName("有exchange收到消息，消息没有被转发给queue")
+    @DisplayName("有exchange收到消息，消息没有被转发给queue，publisher return回调会执行")
     @Test
     public void should_be_called_when_message_is_not_redirected_to_queue_by_exchange() {
         /* 给template设置return回调函数 */
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             /**
-             *
+             * publisher return回调方法，当消息没有被交换机转发给queue时，会执行
              * @param message the returned message. 被返回的消息的内容，也就是发送的消息的内容
              * @param replyCode the reply code. 返回码，类似于错误码
              * @param replyText the reply text. 返回信息，类似于错误信息
@@ -72,9 +72,9 @@ public class PublisherReturnTest {
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "not_existed_routing_key", "publisher return mq hello~~~");
     }
 
-    @DisplayName("没有exchange收到消息")
+    @DisplayName("没有exchange收到消息，publisher return回调不会执行")
     @Test
-    public void should_xxx() {
+    public void should_not_be_called_when_message_not_reach_exchange() {
         /* 给template设置return回调函数 */
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             @Override
