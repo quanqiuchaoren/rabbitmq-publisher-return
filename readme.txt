@@ -1,0 +1,7 @@
+publisher return模式能达到的效果：
+1、当消息到达了exchange，却没有被分发给任何queue的时候，进行一些回调处理。
+2、当消息到达了exchange，却没有被分发给任何queue的时候，判断消息是达到的哪个exchange，消息内容是什么，为什么没有被exchange分发给消息队列。
+
+publisher return模式开启的方式：
+1、在配置文件中将spring.rabbitmq.publisher-returns设置为true。或者在代码中设置rabbitTemplate.setMandatory(true);
+2、rabbitTemplate.setReturnCallback设置publisher return回调函数。
